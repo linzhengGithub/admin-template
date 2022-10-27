@@ -1,19 +1,19 @@
+import * as path from 'path'
 import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
-import * as path from 'path';
 
 // https://vitejs.dev/config/
 export default defineConfig({
   resolve: {
-    //设置别名
+    // 设置别名
     alias: {
-      '@': path.resolve(__dirname, 'src')
-    }
+      '@': path.resolve(__dirname, 'src'),
+    },
   },
   plugins: [vue()],
   server: {
     host: true,
-    port: 8080, //启动端口
+    port: 8080, // 启动端口
     // hmr: {
     //   host: '127.0.0.1',
     //   port: 8080
@@ -25,6 +25,6 @@ export default defineConfig({
       //   changeOrigin: true,
       //   rewrite: (path: string) => path.replace(/^\/api/, '')
       // }
-    }
-  }
+    },
+  },
 })

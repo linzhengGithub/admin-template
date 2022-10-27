@@ -3,7 +3,7 @@
     "typeRoots": [
       "node_modules/@types", // 默认值
       "src/types"
-   ],
+    ],
     "target": "ESNext",
     "useDefineForClassFields": true,
     "module": "ESNext",
@@ -16,9 +16,9 @@
     "esModuleInterop": true,
     "lib": ["ESNext", "DOM"],
     "baseUrl": "./",
-    "paths":{
+    "paths": {
       "@": ["src"],
-      "@/*": ["src/*"],
+      "@/*": ["src/*"]
     },
     "skipLibCheck": true
   },
