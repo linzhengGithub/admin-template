@@ -1,4 +1,11 @@
 /**
+ * @description: Request result set
+ */
+export enum ResultEnum {
+  SUCCESS = 200,
+}
+
+/**
  * @description: request method
  */
 export enum RequestEnum {

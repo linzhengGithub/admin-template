@@ -1,10 +1,10 @@
-import axios from 'axios'
 import { defineStore } from 'pinia'
 import { removeToken } from '@/utils/auth'
+import { loginApi } from '@/api/user'
 
 interface UserState {
-  username: String
-  password: String
+  username: string
+  password: string
   token?: string
 }
 
@@ -22,13 +22,15 @@ export const useUserStore = defineStore({
   actions: {
     // 登录
     async login(params: UserState) {
-      const result = await axios.post('/basic-api/login', params)
-      const { data, code } = result.data
-      if (code === 200) {
-        this.username = data.username
-        this.token = data.token
-      }
-      return data
+      const result = await loginApi(params)
+      console.log('await拿到数据', result)
+
+      // const { data, code } = result.data
+      // if (code === 200) {
+      //   this.username = data.username
+      //   this.token = data.token
+      // }
+      // return data
     },
     // 登出
     logout() {

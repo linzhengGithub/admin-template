@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { reactive } from 'vue'
 import { useUserStore } from '@/store/modules/user'
+import { getAppEnvConfig } from '@/utils/env'
 
 const userStore = useUserStore()
 
@@ -9,6 +10,7 @@ const userForm = reactive({
   password: '',
 })
 const login = async () => {
+  getAppEnvConfig()
   await userStore.login(userForm)
 }
 </script>
