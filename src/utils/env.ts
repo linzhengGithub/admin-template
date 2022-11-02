@@ -6,7 +6,7 @@ export function globalConfig() {
   } = config
 
   const global = {
-    baseURL: VITE_GLOB_API_URL,
+    apiUrl: VITE_GLOB_API_URL,
     urlPrefix: VITE_GLOB_API_URL_PREFIX,
   }
 

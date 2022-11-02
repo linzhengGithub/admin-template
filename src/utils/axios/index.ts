@@ -1,13 +1,12 @@
-import type { AxiosRequestConfig, AxiosResponse } from 'axios'
 import { deepMerge, setObjToUrlParams } from '../index'
 import { isString } from '../is'
 import { getToken } from '../auth'
 import { InitAxios } from './initAxios'
-import { formatRequestDate, joinTimestamp } from './helper'
+import { formatRequestDate } from './helper'
 import { ContentTypeEnum, RequestEnum, ResultEnum } from '@/enums/httpEnum'
 import { globalConfig } from '@/utils/env'
 
-const { baseURL, urlPrefix } = globalConfig()
+const { apiUrl, urlPrefix } = globalConfig()
 
 // 数据处理
 const transform = {
@@ -32,20 +31,18 @@ const transform = {
       throw new Error('sys.api.apiRequestFailed')
     }
     //  这里 code，result，message为 后台统一的字段，需要在 types.ts内修改为项目自己的接口返回格式
-    const { code, data: result, message } = data
+    const { code, data: result } = data
 
     // 这里逻辑可以根据项目进行修改'
     const hasSuccess = data && Reflect.has(data, 'code') && code === ResultEnum.SUCCESS
 
     if (hasSuccess)
       return result
-
-    console.log('transformRequestHook', res, options)
   },
 
   // 请求之前处理config
   beforeRequestHook: (config, options) => {
-    const { apiUrl, joinPrefix, joinParamsToUrl, formatDate, joinTime = true, urlPrefix } = options
+    const { apiUrl, joinPrefix, joinParamsToUrl, formatDate, urlPrefix } = options
     if (joinPrefix)
       config.url = `${urlPrefix}${config.url}`
 
@@ -61,7 +58,7 @@ const transform = {
       }
       else {
         // 兼容restful风格
-        config.url = `${config.url + params}${joinTimestamp(joinTime, true)}`
+        config.url = `${config.url}/${params}`
         config.params = undefined
       }
     }
@@ -90,13 +87,11 @@ const transform = {
         config.params = undefined
       }
     }
-    console.log('beforeRequestHook', config, options)
     return config
   },
 
   // 请求拦截器处理
   requestInterceptors: (config, options) => {
-    console.log('requestInterceptors', config, options)
     // 请求之前处理config
     const token = getToken()
 
@@ -106,24 +101,25 @@ const transform = {
         ? `${options.authenticationScheme} ${token}`
         : token
     }
+
+    // TODO 没有token的情况
     return config
   },
 
   // 请求拦截器错误处理
   requestInterceptorsCatch: (error) => {
-    console.log('requestInterceptorsCatch', error)
     return error
   },
 
   // 响应拦截器处理
   responseInterceptors: (res) => {
-    console.log('responseInterceptors', res)
+    // TODO 处理无效token的情况
     return res
   },
 
   // 响应错误处理
   responseInterceptorsCatch: (error) => {
-    console.log('responseInterceptorsCatch', error)
+    // const { response, code, message, config } = error
     return Promise.reject(error)
   },
 }
@@ -131,11 +127,11 @@ const transform = {
 const createAxios = (opt?: any) => {
   return new InitAxios(deepMerge({
     // 身份验证
-    authenticationScheme: '',
+    authenticationScheme: 'Bearer',
     // 接口超时
     timeout: 10 * 1000,
     // 基础接口地址
-    baseURL,
+    baseURL: '',
     // json格式头部
     headers: { 'Content-Type': ContentTypeEnum.JSON },
     // 数据处理方式
@@ -155,7 +151,7 @@ const createAxios = (opt?: any) => {
       // 消息提示类型
       errorMessageMode: 'message',
       // 接口地址
-      apiUrl: '',
+      apiUrl,
       // 接口拼接地址
       urlPrefix,
       //  是否加入时间戳

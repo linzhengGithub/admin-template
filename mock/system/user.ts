@@ -7,7 +7,17 @@ export default [
     response: () => {
       return resultSuccess({
         token: 'basic_token',
+      })
+    },
+  },
+  {
+    url: '/basic-api/getUserInfo',
+    methods: 'get',
+    response: () => {
+      return resultSuccess({
+        userId: '123456',
         username: 'basic_name',
+        router: [],
       })
     },
   },

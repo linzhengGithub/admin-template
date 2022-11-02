@@ -1,4 +1,4 @@
-import type { AxiosError, AxiosInstance, AxiosRequestConfig, AxiosResponse } from 'axios'
+import type { AxiosInstance } from 'axios'
 import axios from 'axios'
 import { cloneDeep } from 'lodash-es'
 import { isFunction } from '../is'
@@ -105,7 +105,7 @@ export class InitAxios {
   }
 
   post(config, options?) {
-    return this.request({ ...config, method: 'POST' }, options)
+    return this.request({ ...config, method: RequestEnum.POST }, options)
   }
 
   put(config: any, options?: any) {

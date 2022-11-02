@@ -1,36 +1,43 @@
 import { defineStore } from 'pinia'
-import { removeToken } from '@/utils/auth'
-import { loginApi } from '@/api/user'
+import { removeToken, setToken } from '@/utils/auth'
+import { getUserInfoApi, loginApi } from '@/api/user'
 
 interface UserState {
+  userInfo: any
+  token?: string
+}
+interface LoginParams {
   username: string
   password: string
-  token?: string
 }
 
 export const useUserStore = defineStore({
   id: 'app-user',
-  state: () => ({
-    username: '',
+  state: (): UserState => ({
+    userInfo: null,
     token: '',
   }),
   getters: {
-    getToken(): string {
+    getToken(): any {
       return this.token
     },
   },
   actions: {
     // 登录
-    async login(params: UserState) {
-      const result = await loginApi(params)
-      console.log('await拿到数据', result)
-
-      // const { data, code } = result.data
-      // if (code === 200) {
-      //   this.username = data.username
-      //   this.token = data.token
-      // }
-      // return data
+    async login(params: LoginParams) {
+      const result: any = await loginApi(params)
+      const { token } = result
+      this.token = token
+      setToken(token)
+      return this.getUserInfo()
+    },
+    // 获取用户信息
+    async getUserInfo() {
+      const token = this.getToken
+      if (!token)
+        return null
+      const userInfo = await getUserInfoApi({ token })
+      this.userInfo = userInfo
     },
     // 登出
     logout() {
