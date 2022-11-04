@@ -17,7 +17,7 @@ export default defineConfig((config) => {
     plugins: [
       vue(),
       viteMockServe({
-      // 只在开发阶段开启 mock 服务
+        // 只在开发阶段开启 mock 服务
         localEnabled: command === 'serve',
       }),
     ],

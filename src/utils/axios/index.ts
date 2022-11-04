@@ -119,7 +119,8 @@ const transform = {
 
   // 响应错误处理
   responseInterceptorsCatch: (error) => {
-    // const { response, code, message, config } = error
+    const { response, code, message, config } = error
+    console.log('response---', response, 'code---', code, 'message---', message, 'config---', config)
     return Promise.reject(error)
   },
 }
