@@ -5,8 +5,10 @@ import { InitAxios } from './initAxios'
 import { formatRequestDate } from './helper'
 import { ContentTypeEnum, RequestEnum, ResultEnum } from '@/enums/httpEnum'
 import { globalConfig } from '@/utils/env'
+import { useMessage } from '@/hooks/useMessage'
 
 const { apiUrl, urlPrefix } = globalConfig()
+const { createErrorMessage } = useMessage()
 
 // 数据处理
 const transform = {
@@ -120,6 +122,7 @@ const transform = {
   // 响应错误处理
   responseInterceptorsCatch: (error) => {
     const { response, code, message, config } = error
+    createErrorMessage(message)
     console.log('response---', response, 'code---', code, 'message---', message, 'config---', config)
     return Promise.reject(error)
   },
