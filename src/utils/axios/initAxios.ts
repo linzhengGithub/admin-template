@@ -2,7 +2,7 @@ import type { AxiosInstance } from 'axios'
 import axios from 'axios'
 import { cloneDeep } from 'lodash-es'
 import { isFunction } from '../is'
-import { RequestEnum } from '@/enums/httpEnum'
+import { ContentTypeEnum, RequestEnum } from '@/enums/httpEnum'
 
 export class InitAxios {
   private axiosInstance: AxiosInstance
@@ -114,5 +114,33 @@ export class InitAxios {
 
   delete(config: any, options?: any) {
     return this.request({ ...config, method: RequestEnum.DELETE }, options)
+  }
+
+  uploadFile(config, params) {
+    const formData = new window.FormData()
+
+    if (params.data) {
+      Object.keys(params.data).forEach((key) => {
+        const value = params.data[key]
+        if (Array.isArray(value)) {
+          value.forEach((item) => {
+            formData.append(`${key}`, item)
+          })
+          return
+        }
+
+        formData.append(key, params.data![key])
+      })
+    }
+
+    return this.axiosInstance.request({
+      ...config,
+      method: 'POST',
+      data: formData,
+      headers: {
+        'Content-type': ContentTypeEnum.FORM_DATA,
+        'ignoreCancelToken': true,
+      },
+    })
   }
 }
