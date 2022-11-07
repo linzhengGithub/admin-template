@@ -11,6 +11,7 @@ export default defineConfig((config) => {
   const { command } = config
 
   return {
+    base: '/',
     resolve: {
       // 设置别名
       alias: {

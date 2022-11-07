@@ -10,34 +10,52 @@ interface LoginParams {
   username: string
   password: string
 }
+interface UserInfo {
+  userId: string
+  username: string
+  roles?: []
+}
 
 export const useUserStore = defineStore({
   id: 'app-user',
   state: (): UserState => ({
     userInfo: null,
-    token: '',
+    token: undefined,
   }),
   getters: {
-    getToken(): any {
-      return this.token
+    getToken(): string {
+      return this.token || ''
+    },
+    getUserInfo(): UserInfo {
+      return this.userInfo
     },
   },
   actions: {
+    setUserInfo(info) {
+      this.userInfo = info
+    },
     // 登录
     async login(params: LoginParams) {
       const result: any = await loginApi(params)
       const { token } = result
       this.token = token
       setToken(token)
-      return this.getUserInfo()
+      return this.afterLoginAction()
+    },
+    async afterLoginAction() {
+      if (!this.getToken)
+        return null
+      const userInfo = this.getUserInfoAction()
+      return userInfo
     },
     // 获取用户信息
-    async getUserInfo() {
+    async getUserInfoAction() {
       const token = this.getToken
       if (!token)
         return null
       const userInfo = await getUserInfoApi({ token })
-      this.userInfo = userInfo
+      this.setUserInfo(userInfo)
+      return userInfo
     },
     // 登出
     logout() {

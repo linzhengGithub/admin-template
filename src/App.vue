@@ -1,11 +1,12 @@
 <script setup lang="ts">
 // This starter template is using Vue 3 <script setup> SFCs
 // Check out https://vuejs.org/api/sfc-script-setup.html#script-setup
-import Login from './views/system/Login.vue'
 </script>
 
 <template>
-  <Login />
+  <div id="app">
+    <RouterView />
+  </div>
 </template>
 
 <style scoped>
