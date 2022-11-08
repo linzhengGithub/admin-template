@@ -3,7 +3,7 @@
 </script>
 
 <template>
-  <div>123</div>
+  <div>listTwo</div>
 </template>
 
 <style scoped>

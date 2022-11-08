@@ -1,21 +1,36 @@
 <script setup lang="ts">
+import { useRoute } from 'vue-router'
 
+const route = useRoute()
 </script>
 
 <template>
-  <div class="common-layout">
+  <div>
     <el-container>
-      <el-aside width="200px">
+      <el-aside class="layout_aside">
         Aside
       </el-aside>
       <el-container>
-        <el-header>Header</el-header>
-        <el-main>Main</el-main>
+        <el-header class="layout_header">
+          Header
+        </el-header>
+        <el-main class="layout_main">
+          <RouterView :key="route.fullPath" />
+        </el-main>
       </el-container>
     </el-container>
   </div>
 </template>
 
-<style scoped>
-
+<style scoped lang="scss">
+.layout_aside{
+  height: 100vh;
+  border: 1px solid red;
+}
+.layout_header{
+  border: 1px solid red;
+}
+.layout_main{
+  border: 1px solid red
+}
 </style>

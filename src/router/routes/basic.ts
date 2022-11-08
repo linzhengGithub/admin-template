@@ -1,11 +1,13 @@
-import { LAYOUT } from '../constant'
+import { LAYOUT, PAGE_NOT_FOUND_NAME } from '../constant'
 import type { AppRouteRecordRaw } from '../types'
-export const TEST_ROUTER: AppRouteRecordRaw = {
-  name: 'TestRouter',
+
+export const ERROR_PAGE: AppRouteRecordRaw = {
+  name: 'ErrorPage',
   meta: {
-    title: '测试路由',
+    title: 'ErrorPage',
   },
-  path: '/dashboard',
-  components: LAYOUT,
+  path: '/:path(.*)*',
+  component: LAYOUT,
+  children: [],
 }
 
