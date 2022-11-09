@@ -1,5 +1,9 @@
 import { createPinia } from 'pinia'
 
-const pinia = createPinia()
+const store = createPinia()
 
-export default pinia
+export function setupStore(app) {
+  app.use(store)
+}
+
+export { store }

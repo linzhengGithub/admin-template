@@ -1,7 +1,7 @@
 import { defHttp } from '@/utils/axios'
 
 enum Api {
-  Login = '/logins',
+  Login = '/login',
   GerUserInfo = '/getUserInfo',
 }
 
