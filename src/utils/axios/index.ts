@@ -1,6 +1,6 @@
 import { deepMerge, setObjToUrlParams } from '../index'
 import { isString } from '../is'
-import { getToken } from '../auth'
+import { getTokenToCookie } from '../auth'
 import { InitAxios } from './initAxios'
 import { formatRequestDate } from './helper'
 import { ContentTypeEnum, RequestEnum, ResultEnum } from '@/enums/httpEnum'
@@ -95,7 +95,7 @@ const transform = {
   // 请求拦截器处理
   requestInterceptors: (config, options) => {
     // 请求之前处理config
-    const token = getToken()
+    const token = getTokenToCookie()
 
     if (token && config?.requestOptions?.withToken !== false) {
       // jwt token

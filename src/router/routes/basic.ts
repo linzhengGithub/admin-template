@@ -1,13 +1,22 @@
-import { LAYOUT, PAGE_NOT_FOUND_NAME } from '../constant'
+import { LAYOUT, PAGE_NOT_FOUND } from '../constant'
 import type { AppRouteRecordRaw } from '../types'
 
 export const ERROR_PAGE: AppRouteRecordRaw = {
+  path: '/error-page',
   name: 'ErrorPage',
+  component: LAYOUT,
   meta: {
     title: 'ErrorPage',
   },
-  path: '/:path(.*)*',
-  component: LAYOUT,
-  children: [],
+  children: [
+    {
+      path: '/error-page/notFound',
+      name: PAGE_NOT_FOUND,
+      component: () => import('@/views/system/errorPage/NotFound.vue'),
+      meta: {
+        title: 'NotFound',
+      },
+    },
+  ],
 }
 

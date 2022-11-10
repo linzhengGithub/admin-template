@@ -1,10 +1,13 @@
 import { defineStore } from 'pinia'
-import { removeToken, setToken } from '@/utils/auth'
+import { store } from '@/store/index'
+import { getTokenToCookie, removeCookieToken, setTokenToCookie } from '@/utils/auth'
 import { getUserInfoApi, loginApi } from '@/api/user'
+import { router } from '@/router'
 
 interface UserState {
   userInfo: any
   token?: string
+  lastUpdateTime: number
 }
 interface LoginParams {
   username: string
@@ -21,6 +24,7 @@ export const useUserStore = defineStore({
   state: (): UserState => ({
     userInfo: null,
     token: undefined,
+    lastUpdateTime: 0,
   }),
   getters: {
     getToken(): string {
@@ -29,38 +33,53 @@ export const useUserStore = defineStore({
     getUserInfo(): UserInfo {
       return this.userInfo
     },
+    getLastUpdateTime(): number {
+      return this.lastUpdateTime
+    },
   },
   actions: {
     setUserInfo(info) {
       this.userInfo = info
+      this.lastUpdateTime = new Date().getTime()
+    },
+    setToken(token) {
+      this.token = token
+      setTokenToCookie(token)
     },
     // 登录
     async login(params: LoginParams) {
-      const result: any = await loginApi(params)
-      const { token } = result
-      this.token = token
-      setToken(token)
+      const data: any = await loginApi(params)
+      const { result, code } = data
+      if (code === 200)
+        this.setToken(result.token)
       return this.afterLoginAction()
     },
     async afterLoginAction() {
       if (!this.getToken)
         return null
       const userInfo = this.getUserInfoAction()
+      router.replace('/')
+      // addRoute
       return userInfo
     },
     // 获取用户信息
     async getUserInfoAction() {
-      const token = this.getToken
-      if (!token)
+      const cookieToken = getTokenToCookie()
+      if (!cookieToken)
         return null
-      const userInfo = await getUserInfoApi({ token })
+      this.setToken(cookieToken)
+      const userInfo = await getUserInfoApi({ token: cookieToken })
       this.setUserInfo(userInfo)
       return userInfo
     },
     // 登出
     logout() {
-      removeToken()
+      removeCookieToken()
     },
   },
 })
+
+export function useUserStoreWithOut() {
+  return useUserStore(store)
+}
 

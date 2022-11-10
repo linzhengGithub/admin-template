@@ -2,12 +2,13 @@ import { LAYOUT } from '@/router/constant'
 import type { AppRouteRecordRaw } from '@/router/types'
 
 export const TEST_ROUTER: AppRouteRecordRaw = {
+  path: '/dashboard',
   name: 'TestRouter',
+  component: LAYOUT,
   meta: {
     title: '测试路由',
   },
-  path: '/dashboard',
-  component: LAYOUT,
+  redirect: '/dashboard/listOne',
   children: [
     {
       path: '/dashboard/listOne',
