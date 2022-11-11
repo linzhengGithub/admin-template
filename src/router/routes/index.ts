@@ -1,4 +1,4 @@
-import { TEST_ROUTER } from '@/router/routes/modules/testRouter'
+import { ERROR_PAGE } from '@/router/routes/basic'
 import type { AppRouteRecordRaw } from '@/router/types'
 import { PageEnum } from '@/enums/pageEnum'
 
@@ -23,5 +23,5 @@ export const LoginRoute: AppRouteRecordRaw = {
 export const basicRoutes = [
   LoginRoute,
   RootRoute,
-  TEST_ROUTER,
+  ERROR_PAGE,
 ]

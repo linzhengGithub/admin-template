@@ -1,12 +1,12 @@
-import type { Router } from 'vue-router'
+import type { RouteRecordRaw, Router } from 'vue-router'
+import { TEST_ROUTER } from '../routes/modules/testRouter'
 import { useUserStoreWithOut } from '@/store/modules/user'
-import { LoginRoute, RootRoute } from '@/router/routes'
 import { PageEnum } from '@/enums/pageEnum'
 import { getTokenToCookie } from '@/utils/auth'
+import { WHITE_PATH_LIST } from '@/router/index'
+import { usePermissionStoreWithOut } from '@/store/modules/permission'
 
-const ROOT_PATH = RootRoute.path
 const LOGIN_PATH = PageEnum.BASE_LOGIN
-const whitePathList: PageEnum[] = [LOGIN_PATH]
 const redirectLogin = {
   path: LOGIN_PATH,
   replace: true,
@@ -14,46 +14,31 @@ const redirectLogin = {
 
 export function createPermissionGuard(router: Router) {
   router.beforeEach(async (to, from, next) => {
-    console.log('to---->', to)
-    console.log('from---->', from)
     const userStore = useUserStoreWithOut()
+    const permissionStore = usePermissionStoreWithOut()
     const token = getTokenToCookie()
-    // token -> next()
-    // !token -> login page
 
-    if (token && to.path !== LOGIN_PATH) {
-      next()
-      return
-    }
-
-    //
-    if (whitePathList.includes(to.path as PageEnum)) {
-      if (to.path === LOGIN_PATH && token) {
-        // const isSessionTimeout = userStore.getSessionTimeout;
-        await userStore.afterLoginAction()
-        next((to.query?.redirect as string) || '/')
-        try {
-          // await userStore.afterLoginAction()
-          // if (!isSessionTimeout) {
-          // next((to.query?.redirect as string) || '/')
-          // return
-          // }
-        }
-        catch {}
-      }
-      next()
-    }
-
-    if (userStore.getLastUpdateTime === 0) {
+    if (userStore.getLastUpdateTime === 0 && token) {
       try {
         await userStore.getUserInfoAction()
       }
       catch (err) {
         next()
+        return
       }
     }
 
-    if (!token)
-      next(redirectLogin)
+    if (token) {
+      if (to.path === LOGIN_PATH) {
+        // 路由权限
+        next('/')
+      }
+    }
+    else {
+      if (WHITE_PATH_LIST.includes(to.path as PageEnum))
+        next()
+      else
+        next(redirectLogin)
+    }
   })
 }
