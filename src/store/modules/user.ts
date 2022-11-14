@@ -42,7 +42,7 @@ export const useUserStore = defineStore({
       this.userInfo = info
       this.lastUpdateTime = new Date().getTime()
     },
-    setToken(token) {
+    setToken(token: string) {
       this.token = token
       setTokenToCookie(token)
     },
@@ -57,9 +57,8 @@ export const useUserStore = defineStore({
     async afterLoginAction() {
       if (!this.getToken)
         return null
-      const userInfo = this.getUserInfoAction()
+      const userInfo = await this.getUserInfoAction()
       router.replace('/')
-      // addRoute
       return userInfo
     },
     // 获取用户信息

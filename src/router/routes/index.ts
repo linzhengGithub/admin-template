@@ -1,6 +1,17 @@
 import { ERROR_PAGE } from '@/router/routes/basic'
-import type { AppRouteRecordRaw } from '@/router/types'
+import type { AppRouteModule, AppRouteRecordRaw } from '@/router/types'
 import { PageEnum } from '@/enums/pageEnum'
+import { TEST_ROUTER } from '@/router/routes/modules/testRouter'
+
+const localRouter = [TEST_ROUTER]
+
+const routeModuleList: AppRouteModule[] = []
+
+localRouter.forEach((key) => {
+  routeModuleList.push(key)
+})
+
+export const asyncRoutes = [ERROR_PAGE, ...routeModuleList]
 
 export const RootRoute: AppRouteRecordRaw = {
   path: '/',

@@ -1,7 +1,8 @@
 <script setup lang="ts">
-import { useRoute } from 'vue-router'
+// import { useRoute } from 'vue-router'
 
-const route = useRoute()
+// const route = useRoute()
+// console.log('layout', route)
 </script>
 
 <template>
@@ -15,7 +16,16 @@ const route = useRoute()
           Header
         </el-header>
         <el-main class="layout_main">
-          <RouterView :key="route.fullPath" />
+          <RouterView>
+            <template #default="{ Component, route }">
+              <!-- <transition
+                mode="out-in"
+                appear
+              > -->
+              <component :is="Component" :key="route.fullPath" />
+              <!-- </transition> -->
+            </template>
+          </RouterView>
         </el-main>
       </el-container>
     </el-container>
