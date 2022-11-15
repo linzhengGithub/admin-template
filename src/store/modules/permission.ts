@@ -40,7 +40,11 @@ export const usePermissionStore = defineStore({
     },
     async buildRoutesAction() {
       const routes: AppRouteRecordRaw[] = []
-      routes.push(TEST_ROUTER)
+      const routeList = [TEST_ROUTER]
+      routeList.forEach((i) => {
+        routes.push(i)
+      })
+      // this.setBackMenuList(routes)
       return routes
     },
   },
