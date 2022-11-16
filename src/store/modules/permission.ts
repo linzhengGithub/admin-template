@@ -1,10 +1,10 @@
 import { defineStore } from 'pinia'
-import type { AppRouteRecordRaw } from '@/router/types'
+import type { AppRouteRecordRaw, Menu } from '@/router/types'
 import { store } from '@/store'
 import { TEST_ROUTER } from '@/router/routes/modules/testRouter'
 
 interface PermissionState {
-  backMenuList: []
+  backMenuList: Menu[]
   lastBuildMenuTime: number
   isDynamicAddedRoute: boolean
 }
@@ -17,7 +17,7 @@ export const usePermissionStore = defineStore({
     isDynamicAddedRoute: false,
   }),
   getters: {
-    getBackMenuList(): [] {
+    getBackMenuList(): Menu[] {
       return this.backMenuList
     },
     getLastBuildMenuTime(): number {
@@ -28,7 +28,7 @@ export const usePermissionStore = defineStore({
     },
   },
   actions: {
-    setBackMenuList(list: []) {
+    setBackMenuList(list: Menu[]) {
       this.backMenuList = list
       list?.length > 0 && this.setLastBuildMenuTime()
     },
@@ -40,11 +40,11 @@ export const usePermissionStore = defineStore({
     },
     async buildRoutesAction() {
       const routes: AppRouteRecordRaw[] = []
-      const routeList = [TEST_ROUTER]
+      const routeList: AppRouteRecordRaw[] = [TEST_ROUTER]
       routeList.forEach((i) => {
         routes.push(i)
       })
-      // this.setBackMenuList(routes)
+      this.setBackMenuList(routes)
       return routes
     },
   },

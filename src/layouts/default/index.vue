@@ -1,15 +1,12 @@
 <script setup lang="ts">
-// import { useRoute } from 'vue-router'
-
-// const route = useRoute()
-// console.log('layout', route)
+import Sidebar from './Sidebar/index.vue'
 </script>
 
 <template>
   <div>
     <el-container>
       <el-aside class="layout_aside">
-        Aside
+        <Sidebar />
       </el-aside>
       <el-container>
         <el-header class="layout_header">
@@ -18,12 +15,12 @@
         <el-main class="layout_main">
           <RouterView>
             <template #default="{ Component, route }">
-              <!-- <transition
+              <transition
                 mode="out-in"
                 appear
-              > -->
-              <component :is="Component" :key="route.fullPath" />
-              <!-- </transition> -->
+              >
+                <component :is="Component" :key="route.fullPath" />
+              </transition>
             </template>
           </RouterView>
         </el-main>
