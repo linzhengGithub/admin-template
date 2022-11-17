@@ -18,7 +18,10 @@ declare module '@vue/runtime-core' {
     ElSubMenu: typeof import('element-plus/es')['ElSubMenu']
     IEpAddLocation: typeof import('~icons/ep/add-location')['default']
     IEpAim: typeof import('~icons/ep/aim')['default']
+    IEpBox: typeof import('~icons/ep/box')['default']
     IEpMenu: typeof import('~icons/ep/menu')['default']
+    IEpSearch: typeof import('~icons/ep/search')['default']
+    Item: typeof import('./components/SidebarContainer/src/Item.vue')['default']
     Link: typeof import('./components/SidebarContainer/src/Link.vue')['default']
     Logo: typeof import('./components/SidebarContainer/src/Logo.vue')['default']
     MenuContainer: typeof import('./components/MenuContainer/index.vue')['default']
@@ -29,5 +32,6 @@ declare module '@vue/runtime-core' {
     SidebarContainer: typeof import('./components/SidebarContainer/index.vue')['default']
     SidebarItem: typeof import('./components/SidebarContainer/src/SidebarItem.vue')['default']
     SidebarList: typeof import('./components/SidebarContainer/src/SidebarList.vue')['default']
+    SvgIcon: typeof import('./components/SvgIcon/index.vue')['default']
   }
 }

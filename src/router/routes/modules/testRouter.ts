@@ -7,6 +7,7 @@ export const TEST_ROUTER: AppRouteRecordRaw = {
   component: LAYOUT,
   meta: {
     title: '测试路由',
+    icon: 'testSearch',
   },
   redirect: '/dashboard/listOne',
   children: [

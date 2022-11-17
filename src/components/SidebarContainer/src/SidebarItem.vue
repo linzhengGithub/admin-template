@@ -18,10 +18,14 @@ const haveChildren = (data) => {
 <template>
   <el-sub-menu v-if="haveChildren(item)" :index="path">
     <template #title>
-      <el-icon><location /></el-icon>
-      <span>{{ item.name }}</span>
+      <Item :icon="item.meta.icon" :name="item.name" />
     </template>
-    <SidebarItem v-for="(child, index) in item.children" :key="index" :item="child" :path="child.path" />
+    <SidebarItem
+      v-for="(child, index) in item.children"
+      :key="index"
+      :item="child"
+      :path="child.path"
+    />
   </el-sub-menu>
   <Link v-else :to="path">
     <el-menu-item :index="path">
