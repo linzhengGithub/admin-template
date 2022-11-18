@@ -2,6 +2,7 @@ import { defineStore } from 'pinia'
 import type { AppRouteRecordRaw, Menu } from '@/router/types'
 import { store } from '@/store'
 import { TEST_ROUTER } from '@/router/routes/modules/testRouter'
+import { TEST } from '@/router/routes/modules/test'
 
 interface PermissionState {
   backMenuList: Menu[]
@@ -40,7 +41,7 @@ export const usePermissionStore = defineStore({
     },
     async buildRoutesAction() {
       const routes: AppRouteRecordRaw[] = []
-      const routeList: AppRouteRecordRaw[] = [TEST_ROUTER]
+      const routeList: AppRouteRecordRaw[] = [TEST_ROUTER, TEST]
       routeList.forEach((i) => {
         routes.push(i)
       })

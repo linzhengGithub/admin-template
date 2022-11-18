@@ -13,10 +13,9 @@ export default defineComponent({
 <template>
   <div>
     <Logo />
-    <SidebarList />
+    <SidebarList class="sidebar-container" />
   </div>
 </template>
 
 <style scoped>
-
 </style>

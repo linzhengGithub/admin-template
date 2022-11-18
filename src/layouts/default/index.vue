@@ -1,28 +1,21 @@
 <script setup lang="ts">
 import Sidebar from './Sidebar/index.vue'
+import Main from './Main/index.vue'
+import Header from './Header/index.vue'
 </script>
 
 <template>
   <div>
     <el-container>
-      <el-aside class="layout_aside">
+      <el-aside class="layout_sidebar">
         <Sidebar />
       </el-aside>
       <el-container>
         <el-header class="layout_header">
-          Header
+          <Header />
         </el-header>
         <el-main class="layout_main">
-          <RouterView>
-            <template #default="{ Component, route }">
-              <transition
-                mode="out-in"
-                appear
-              >
-                <component :is="Component" :key="route.fullPath" />
-              </transition>
-            </template>
-          </RouterView>
+          <Main />
         </el-main>
       </el-container>
     </el-container>
@@ -30,14 +23,5 @@ import Sidebar from './Sidebar/index.vue'
 </template>
 
 <style scoped lang="scss">
-.layout_aside{
-  height: 100vh;
-  border: 1px solid red;
-}
-.layout_header{
-  border: 1px solid red;
-}
-.layout_main{
-  border: 1px solid red
-}
+@import './index.scss';
 </style>

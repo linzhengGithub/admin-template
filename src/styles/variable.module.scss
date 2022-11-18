@@ -1,0 +1,9 @@
+@import './variable.scss';
+
+:export {
+  sidebarBackground: $sidebar-background;
+  headerBackground: $header-background;
+  mainBackground: $main-background;
+  sidebarTextColor: $sidebar-text-color;
+  sidebarActiveTextColor: $sidebar-active-text-color;
+}

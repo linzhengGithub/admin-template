@@ -1,0 +1,40 @@
+@import './variable.scss';
+@import './sidebar.scss';
+
+html {
+  height: 100%;
+  box-sizing: border-box;
+  overflow: hidden;
+}
+
+body {
+  height: 100%;
+  margin: 0;
+}
+
+#app{
+  height: 100%;
+}
+
+*,
+*:before,
+*:after {
+  box-sizing: inherit;
+}
+
+a:focus,
+a:active {
+  outline: none;
+}
+
+a,
+a:focus,
+a:hover {
+  cursor: pointer;
+  color: inherit;
+  text-decoration: none;
+}
+
+div:focus {
+  outline: none;
+}

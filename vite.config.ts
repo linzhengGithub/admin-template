@@ -43,13 +43,9 @@ export default defineConfig((config) => {
       }),
       Components({
         resolvers: [
-          // Auto register icon components
-          // 自动注册图标组件
           IconsResolver({
             enabledCollections: ['ep'],
           }),
-          // Auto register Element Plus components
-          // 自动导入 Element Plus 组件
           ElementPlusResolver(),
         ],
         dts: path.resolve(pathSrc, 'components.d.ts'),
@@ -63,6 +59,13 @@ export default defineConfig((config) => {
         symbolId: 'icon-[dir]-[name]',
       })),
     ],
+    css: {
+      preprocessorOptions: {
+        scss: {
+          javascriptEnabled: true,
+        },
+      },
+    },
     server: {
       host: true,
       port: 8080, // 启动端口

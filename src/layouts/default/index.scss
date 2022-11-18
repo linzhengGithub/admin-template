@@ -1,0 +1,12 @@
+@import '@/styles/variable.scss';
+.layout_sidebar{
+  height: 100vh;
+  background-color: $sidebar-background;
+}
+.layout_header{
+  border-bottom: 1px solid #cbcace;
+  background-color: $header-background;
+}
+.layout_main{
+  background-color: $header-background;
+}

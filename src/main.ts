@@ -1,5 +1,5 @@
 import { createApp } from 'vue'
-import './style.css'
+import './styles/index.scss'
 import 'virtual:svg-icons-register'
 import App from './App.vue'
 import { setupRouterGuard } from './router/guard'
