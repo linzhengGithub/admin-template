@@ -5,6 +5,8 @@
 }
 .layout_header{
   border-bottom: 1px solid #cbcace;
+  display: flex;
+  align-items: center;
   background-color: $header-background;
 }
 .layout_main{

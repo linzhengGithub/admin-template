@@ -3,5 +3,18 @@
     .is-active>.el-sub-menu__title {
       color: #232323 !important;
     }
+
+    & .el-sub-menu .el-menu-item.is-active {
+      background: $sidebar-active-background-color !important;
+      box-sizing: border-box;
+      width: 100%;
+      border-right: 2px solid #69be9f !important;
+    }
+
+    & .el-sub-menu .el-menu-item {
+      &:hover {
+        background: $sidebar-active-background-color !important;
+      }
+    }
   }
 }
