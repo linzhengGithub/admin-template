@@ -1,9 +1,11 @@
 <script lang="ts">
 import { defineComponent } from 'vue'
 import { useRouter } from 'vue-router'
+import { storeToRefs } from 'pinia'
 import SidebarItem from './SidebarItem.vue'
 import { usePermissionStore } from '@/store/modules/permission'
 import variable from '@/styles/variable.module.scss'
+import { useGlobalStatus } from '@/store/modules/globalStatus'
 
 export default defineComponent({
   name: 'SidebarList',
@@ -22,12 +24,16 @@ export default defineComponent({
     const backgroundColor = variable.sidebarBackground
     const sidebarTextColor = variable.sidebarTextColor
 
+    const globalStatus = useGlobalStatus()
+    const { isCollapse } = storeToRefs(globalStatus)
+
     return {
       backMenuList,
       activeMenu,
       activeTextColor,
       backgroundColor,
       sidebarTextColor,
+      isCollapse,
     }
   },
 })
@@ -39,6 +45,7 @@ export default defineComponent({
       :active-text-color="activeTextColor"
       :background-color="backgroundColor"
       class="sidebar-menu"
+      :collapse="isCollapse"
       :text-color="sidebarTextColor"
       :default-active="activeMenu"
     >

@@ -4,6 +4,10 @@
       color: #232323 !important;
     }
 
+    .el-menu {
+      border-right: none;
+    }
+
     & .el-sub-menu .el-menu-item.is-active {
       background: $sidebar-active-background-color !important;
       box-sizing: border-box;
