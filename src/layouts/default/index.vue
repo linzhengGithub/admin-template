@@ -12,7 +12,7 @@ const { isCollapse } = storeToRefs(globalStatus)
 <template>
   <div>
     <el-container>
-      <el-aside class="layout_sidebar" :class="{ xx: isCollapse, cc: !isCollapse }">
+      <el-aside class="layout_sidebar" :class="{ 'is-collapse': isCollapse, 'no-collapse': !isCollapse }">
         <Sidebar />
       </el-aside>
       <el-container>
@@ -29,10 +29,10 @@ const { isCollapse } = storeToRefs(globalStatus)
 
 <style scoped lang="scss">
 @import './index.scss';
-.cc{
+.no-collapse{
   width: 300px;
 }
-.xx{
+.is-collapse{
   width: 60px;
 }
 </style>

@@ -9,6 +9,9 @@ declare module '@vue/runtime-core' {
   export interface GlobalComponents {
     ElAside: typeof import('element-plus/es')['ElAside']
     ElContainer: typeof import('element-plus/es')['ElContainer']
+    ElDropdown: typeof import('element-plus/es')['ElDropdown']
+    ElDropdownItem: typeof import('element-plus/es')['ElDropdownItem']
+    ElDropdownMenu: typeof import('element-plus/es')['ElDropdownMenu']
     ElHeader: typeof import('element-plus/es')['ElHeader']
     ElIcon: typeof import('element-plus/es')['ElIcon']
     ElMain: typeof import('element-plus/es')['ElMain']
@@ -25,6 +28,8 @@ declare module '@vue/runtime-core' {
     IEpFold: typeof import('~icons/ep/fold')['default']
     IEpMenu: typeof import('~icons/ep/menu')['default']
     IEpSearch: typeof import('~icons/ep/search')['default']
+    IEpUserfilled: typeof import('~icons/ep/userfilled')['default']
+    IEpUserFilled: typeof import('~icons/ep/user-filled')['default']
     Item: typeof import('./components/SidebarContainer/src/Item.vue')['default']
     Link: typeof import('./components/SidebarContainer/src/Link.vue')['default']
     Logo: typeof import('./components/SidebarContainer/src/Logo.vue')['default']

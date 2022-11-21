@@ -1,5 +1,4 @@
 import { ElMessage, ElMessageBox } from 'element-plus'
-import 'element-plus/es/components/message/style/index'
 
 const createMessage = (options) => {
   ElMessage(options)
@@ -37,21 +36,34 @@ const createMessageBox = (options, successFn, errorFn) => {
   const {
     title,
     message,
-    showCancelButton,
     confirmButtonText,
     cancelButtonText,
+    type,
   } = options
-  ElMessageBox({
-    title,
+  ElMessageBox.confirm(
     message,
-    showCancelButton,
-    confirmButtonText,
-    cancelButtonText,
-  }).then(() => {
+    title,
+    {
+      confirmButtonText,
+      cancelButtonText,
+      type,
+    },
+  ).then(() => {
     successFn()
   }).catch(() => {
     errorFn()
   })
+  // ElMessageBox.confirm({
+  //   title,
+  //   message,
+  //   showCancelButton,
+  //   confirmButtonText,
+  //   cancelButtonText,
+  // }).then(() => {
+  //   successFn()
+  // }).catch(() => {
+  //   errorFn()
+  // })
 }
 
 export function useMessage() {

@@ -72,8 +72,9 @@ export const useUserStore = defineStore({
       return userInfo
     },
     // 登出
-    logout() {
+    resetLogin() {
       removeCookieToken()
+      router.replace('/')
     },
   },
 })
